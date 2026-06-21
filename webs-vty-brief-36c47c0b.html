@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专题 · V体育 | 竞技视野与数据脉搏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f2f8fa;
+            color: #1e2a31;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2.4rem 1.6rem 4rem;
+        }
+
+        /* —— 杂志封面横幅 —— */
+        .hero {
+            background: linear-gradient(135deg, #0b323c 0%, #1a5b66 50%, #2a7f8a 100%);
+            border-radius: 28px;
+            padding: 4.4rem 2.4rem 3.6rem;
+            margin-bottom: 3.6rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 28px -8px rgba(10, 50, 60, 0.30);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(90,210,200,0.18), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -8%;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(160,235,225,0.12), transparent 65%);
+            border-radius: 50%;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin-bottom: 1.4rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+            max-width: 80%;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.88;
+            max-width: 70%;
+            font-weight: 350;
+            margin-bottom: 2rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+            opacity: 0.75;
+        }
+
+        .hero-meta span {
+            background: rgba(255,255,255,0.1);
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+        }
+
+        /* —— 网格卡片区 —— */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.6rem;
+            margin-top: 2.8rem;
+        }
+
+        .section-title .accent-line {
+            width: 6px;
+            height: 28px;
+            background: #1d7a86;
+            border-radius: 6px;
+        }
+
+        .section-title h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0b3b44;
+            letter-spacing: -0.01em;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 4px 14px rgba(0, 30, 40, 0.05);
+            border: 1px solid #e5f0f3;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 22px rgba(10, 80, 90, 0.08);
+            border-color: #b1d8df;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: #d5edf0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #1d7180;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #153b45;
+        }
+
+        .card p {
+            font-size: 0.96rem;
+            color: #2d4a55;
+            margin-bottom: 0.3rem;
+        }
+
+        /* —— 自然段落插图区 —— */
+        .narrative {
+            background: white;
+            border-radius: 28px;
+            padding: 2.4rem 2.2rem;
+            margin: 3rem 0 2.6rem;
+            box-shadow: 0 4px 12px rgba(0,30,35,0.04);
+            border: 1px solid #e2f0f2;
+        }
+
+        .narrative p {
+            margin-bottom: 1.2rem;
+            font-size: 1.02rem;
+            color: #1d353e;
+        }
+
+        .narrative p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-link {
+            color: #197681;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid #9acfd6;
+            transition: border 0.15s, color 0.15s;
+        }
+
+        .highlight-link:hover {
+            color: #0d5661;
+            border-bottom-color: #1a8c9a;
+        }
+
+        .insight-quote {
+            background: #eaf6f8;
+            padding: 1.2rem 1.6rem;
+            border-radius: 16px;
+            margin: 1.2rem 0;
+            border-left: 4px solid #2d8d9b;
+            font-style: normal;
+        }
+
+        .insight-quote strong {
+            color: #0a4d59;
+        }
+
+        /* —— 页面底部导航 —— */
+        .footer-note {
+            margin-top: 3.8rem;
+            padding: 2rem 0 1rem;
+            border-top: 1px solid #cddee3;
+            text-align: center;
+            color: #3e5b63;
+            font-size: 0.95rem;
+        }
+
+        .footer-note .link-standalone {
+            color: #197681;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 0.2rem;
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-note .link-standalone:hover {
+            border-bottom: 1px solid #197681;
+        }
+
+        .faq-mini {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem 3rem;
+            margin-top: 1.4rem;
+            font-size: 0.9rem;
+        }
+
+        .faq-mini dt {
+            font-weight: 600;
+            color: #12434e;
+            margin-bottom: 0.15rem;
+        }
+
+        .faq-mini dd {
+            color: #3c5b64;
+        }
+
+        /* 响应式 */
+        @media (max-width: 680px) {
+            .page {
+                padding: 1.8rem 1rem 3rem;
+            }
+
+            .hero {
+                padding: 2.8rem 1.6rem 2.6rem;
+            }
+
+            .hero h1 {
+                font-size: 1.9rem;
+                max-width: 100%;
+            }
+
+            .hero p {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .narrative {
+                padding: 1.6rem 1.4rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 封面横幅 -->
+    <header class="hero">
+        <div class="hero-tag">专题 · 竞技数据</div>
+        <h1>V体育：节奏、视野与真实触感</h1>
+        <p>从赛事流到数据层，一个更安静的观察方式。</p>
+        <div class="hero-meta">
+            <span>📋 专题</span>
+            <span>⚡ 趋势</span>
+            <span>📡 2025</span>
+        </div>
+    </header>
+
+    <!-- 网格卡片：三个侧面 -->
+    <div class="section-title">
+        <span class="accent-line"></span>
+        <h2>三个思考侧面</h2>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>信息密度</h3>
+            <p>赛事数据不再只是一串比分。跑动热点、对抗分布、战术周期——当信息以合适密度呈现，判断变得更清晰。</p>
+            <p style="margin-top:0.6rem;font-size:0.9rem;color:#51818d;">结构 · 而非噪音</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>观察视角</h3>
+            <p>不同镜头语言、不同数据切口，带来迥异的解读。一次进攻可以拆成六层逻辑，也可以浓缩为一瞬直觉。</p>
+            <p style="margin-top:0.6rem;font-size:0.9rem;color:#51818d;">广度 · 与深度并存</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧩</div>
+            <h3>语境连接</h3>
+            <p>竞技从来不只是场上发生的事。历史交锋、球员状态、场外气候——每一块拼图都影响最终画面。</p>
+            <p style="margin-top:0.6rem;font-size:0.9rem;color:#51818d;">整体 · 而非孤岛</p>
+        </div>
+    </div>
+
+    <!-- 三段自然介绍 ＋ 链接嵌入 -->
+    <div class="narrative">
+        <p>
+            第一次认真留意到所谓「体育数据美学」，是几年前看一场低级别联赛的转播。摄像机架在高处，画面里
+            草坪的纹理、球员跑动的路线，与底部滚动数据形成某种奇妙的对照。那时候我才意识到，我们观看的
+            从来不只是比分，而是无数个微小决策的总和。
+        </p>
+        <p>
+            后来逐渐接触更多平台与内容，发现真正让人停留的，往往不是最喧哗的部分，而是那些提供
+            稳定信息流、同时保留思考余地的空间。就像<strong><a href="https://webs-vty.com" class="highlight-link">V体育</a></strong>
+            所呈现的那样——界面克制，数据干净，节奏由自己控制。没有闪烁弹窗，没有夸张标语，
+            只有不断更新的竞技内容和可被信任的信息结构。
+        </p>
+        <div class="insight-quote">
+            <strong>观赛习惯的迁移</strong>：从被动接收解说观点，到主动查阅实时统计、阵容脉络、赛季走势——
+            人们正在用更立体的方式接近体育本身。而工具的选择，决定了这种接近的质感。
+        </div>
+        <p>
+            一个有趣的细节是，当数据呈现方式变得中性、有条理，注意力反而更持久。没有多余装饰，
+            没有诱导性按钮，每一次点开都像翻开一本专题杂志：你知道这里有内容，但需要自己探索。
+            <a href="https://webs-vty.com" class="highlight-link">V体育</a> 给我的感觉正是如此——
+            它不替你下结论，但它把赛场内外的经纬线都铺在你面前。
+        </p>
+    </div>
+
+    <!-- 场景与FAQ摘要混合 -->
+    <div class="section-title" style="margin-top:1.6rem;">
+        <span class="accent-line"></span>
+        <h2>场景 · 与常见疑问</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-bottom:1.8rem;">
+        <div style="background:white; border-radius:20px; padding:1.6rem; border:1px solid #e5f0f3;">
+            <h3 style="font-size:1.1rem; color:#124e5a; margin-bottom:0.6rem;">📌 日常场景</h3>
+            <ul style="list-style:none; color:#2c4f59; font-size:0.95rem; line-height:1.8;">
+                <li>• 赛前查阅近期交锋与伤停信息</li>
+                <li>• 中场时回顾控球率与射门分布</li>
+                <li>• 赛后浏览球员评分与战术简析</li>
+                <li>• 关注长期积分走势与轮换规律</li>
+            </ul>
+        </div>
+        <div style="background:white; border-radius:20px; padding:1.6rem; border:1px solid #e5f0f3;">
+            <h3 style="font-size:1.1rem; color:#124e5a; margin-bottom:0.6rem;">❓ 常见想法</h3>
+            <dl style="color:#2c4f59; font-size:0.93rem;">
+                <dt style="font-weight:600; margin-top:0.2rem;">数据会不会太多？</dt>
+                <dd>信息按模块组织，可以只看自己关心的部分，节奏自由。</dd>
+                <dt style="font-weight:600; margin-top:0.8rem;">内容更新频率？</dt>
+                <dd>覆盖主流赛事与重要对抗，保持与赛场同步的基础信息流。</dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- 页尾 -->
+    <footer class="footer-note">
+        <p style="margin-bottom:0.4rem;">
+            © 专题内容 · 关于竞技数据与观看方式 ·
+            <a href="https://webs-vty.com" class="link-standalone">V体育</a>
+        </p>
+        <div class="faq-mini">
+            <div>
+                <dt>内容方向</dt>
+                <dd>赛事数据 · 趋势观察</dd>
+            </div>
+            <div>
+                <dt>更新节奏</dt>
+                <dd>跟随主要赛程</dd>
+            </div>
+            <div>
+                <dt>访问提示</dt>
+                <dd>桌面与移动端均可</dd>
+            </div>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
